@@ -32,9 +32,9 @@ defmodule KVServer.Command do
   def parse(line) do
     case String.split(line) do
       ["CREATE", bucket] -> {:ok, {:create, bucket}}
-      ["PUT", bucket, item, quantity] -> {:ok, {:put, bucket, item, quantity}}
-      ["GET", bucket, item] -> {:ok, {:get, bucket, item}}
-      ["DELETE", bucket, item] -> {:ok, {:delete, bucket, item}}
+      ["PUT", bucket, key, value] -> {:ok, {:put, bucket, key, value}}
+      ["GET", bucket, key] -> {:ok, {:get, bucket, key}}
+      ["DELETE", bucket, key] -> {:ok, {:delete, bucket, key}}
       _ -> {:error, :unknown_command}
     end
   end
