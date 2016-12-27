@@ -2,6 +2,7 @@ defmodule KVServer do
   use Application
   require Logger
 
+  @doc false
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
@@ -14,6 +15,9 @@ defmodule KVServer do
     Supervisor.start_link(children, opts)
   end
 
+  @doc """
+  Starts accepting connections on the given `port`.
+  """
   def accept(port) do
     {:ok, socket} = :gen_tcp.listen(port,
                       [:binary, packet: :line, active: false, reuseaddr: true])
