@@ -17,4 +17,4 @@ erl_crash.dump
 *.ez
 
 # /lib is in my global gitignore due to earlier use storing node/bower modules
-!/lib
+!**/lib
