@@ -63,7 +63,7 @@ defmodule KVServer do
     :gen_tcp.send(socket, "UNKNOWN COMMAND\r\n")
   end
 
-  defp write_line(socket, {:error, :closed}) do
+  defp write_line(_socket, {:error, :closed}) do
     # The connection was closed, exit politely.
     exit(:shutdown)
   end
