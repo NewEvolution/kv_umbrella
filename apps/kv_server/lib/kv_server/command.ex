@@ -9,6 +9,8 @@ defmodule KVServer.Command do
 
   """
   def parse(line) do
-    :not_implemented
+    case String.split(line) do
+      ["CREATE", bucket] -> {:ok, {:create, bucket}}
+    end
   end
 end
