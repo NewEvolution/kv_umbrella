@@ -7,7 +7,7 @@ defmodule KVServer.Command do
       iex> KVServer.Command.parse "CREATE shopping\r\n"
       {:ok, {:create, "shopping"}}
 
-      iex> KVSerer.Command.parse "CREATE  shopping    \r\n"
+      iex> KVServer.Command.parse "CREATE  shopping    \r\n"
       {:ok, {:create, "shopping"}}
 
       iex> KVServer.Command.parse "PUT shopping milk 1\r\n"
