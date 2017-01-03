@@ -51,8 +51,10 @@ defmodule KVServer.Command do
 
   def run({:get, bucket, key}, pid) do
     lookup bucket, pid, fn pid ->
-      value = KV.Bucket.get(pid, key)
-      {:ok, "#{value}\r\nOK\r\n"}
+      case KV.Bucket.get(pid, key) do
+        value when value == nil -> {:error, :not_found}
+        value -> {:ok, "#{value}\r\nOK\r\n"}
+      end
     end
   end
 
