@@ -67,8 +67,10 @@ defmodule KVServer.Command do
 
   def run({:delete, bucket, key}, pid) do
     lookup bucket, pid, fn pid ->
-      KV.Bucket.delete(pid, key)
-      {:ok, "OK\r\n"}
+     case KV.Bucket.delete(pid, key) do
+       value when value == nil -> {:error, :not_found}
+       _ -> {:ok, "OK\r\n"}
+     end
     end
   end
 
