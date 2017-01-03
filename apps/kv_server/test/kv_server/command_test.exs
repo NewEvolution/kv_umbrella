@@ -11,7 +11,7 @@ defmodule KVServer.CommandTest do
   test "run creates new buckets", %{registry: registry} do
     assert {:error, :not_found} = KVServer.Command.run({:put, "shopping", "eggs", 12}, registry)
 
-    KVServer.Command.run({:create, "shopping"}, registry)
+    assert {:ok, "OK\r\n"} = KVServer.Command.run({:create, "shopping"}, registry)
     assert {:ok, "OK\r\n"} = KVServer.Command.run({:put, "shopping", "eggs", 12}, registry)
   end
 
