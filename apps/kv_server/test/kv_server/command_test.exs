@@ -25,10 +25,18 @@ defmodule KVServer.CommandTest do
 
   test "run deletes values from buckets", %{registry: registry} do
     KVServer.Command.run({:create, "shopping"}, registry)
-    assert {:ok, "OK\r\n"} = KVServer.Command.run({:put, "shopping", "eggs", 12}, registry)
+    KVServer.Command.run({:put, "shopping", "eggs", 12}, registry)
     assert {:ok, "12\r\nOK\r\n"} = KVServer.Command.run({:get, "shopping", "eggs"}, registry)
 
     assert {:ok, "OK\r\n"} = KVServer.Command.run({:delete, "shopping", "eggs"}, registry)
     assert {:error, :not_found} = KVServer.Command.run({:get, "shopping", "eggs"}, registry)
+  end
+
+  test "run returns not found when performing actions on unknown keys or buckets", %{registry: registry} do
+    KVServer.Command.run({:create, "shopping"}, registry)
+
+    assert {:error, :not_found} = KVServer.Command.run({:delete, "shopping", "eggs"}, registry)
+    assert {:error, :not_found} = KVServer.Command.run({:put, "chores", "sweep", 1}, registry)
+    assert {:error, :not_found} = KVServer.Command.run({:get, "shopping", "bananas"}, registry)
   end
 end
